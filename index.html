@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Summit: SSAT Vocab Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0F2A43;--ice:#EAF2F8;--fire:#FF6B2C;--sun:#FFC93C;--pine:#1F7A5C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ice);color:var(--ink);font:18px/1.5 system-ui,sans-serif}
+h1,h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:1.1}
+header{background:var(--ink);color:#fff;padding:20px 16px}
+.top{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px;max-width:760px;margin:0 auto 14px}
+h1{font-size:2.6rem;font-weight:800}
+#pep{margin:4px 0 0;color:#cfe0ee;max-width:46ch}
+label{font-size:.85rem}input{font:inherit;padding:8px;border-radius:8px;border:2px solid var(--ink);width:100%}
+.stats{gap:20px}.stats b{font-size:1.6rem;color:var(--sun);display:block;line-height:1.1}
+.bar{max-width:760px;margin:0 auto;height:14px;background:#1d4466;border-radius:7px;overflow:hidden}
+#bar{height:100%;width:0;background:var(--sun);transition:width .6s}
+#mast{max-width:760px;margin:6px auto 0;font-size:.9rem;color:#cfe0ee}
+nav{display:flex;flex-wrap:wrap;gap:8px;max-width:760px;margin:16px auto 0;padding:0 16px}
+nav button{flex:1 1 auto;padding:10px 12px}nav button.on{background:var(--fire);color:#fff}
+main{max-width:760px;margin:0 auto;padding:16px}
+button{font:inherit;font-weight:700;border:3px solid var(--ink);border-radius:12px;padding:12px 18px;background:#fff;color:var(--ink);cursor:pointer}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:36px 24px;text-align:center;min-height:240px;cursor:pointer;box-shadow:6px 6px 0 var(--ink)}
+.card h2{font-size:2.6rem;margin-bottom:12px}.def{font-size:1.3rem}.ex{color:#456;font-style:italic}
+.row{display:flex;gap:12px;margin-top:16px}.row button{flex:1}
+.yes{background:var(--pine);color:#fff}.no{background:var(--sun)}
+.opts{display:grid;gap:10px;margin-top:16px}.opts button{text-align:left}
+.opts .right{background:var(--pine);color:#fff}.opts .wrong{background:var(--fire);color:#fff}
+.w{padding:10px 0;border-bottom:1px solid #b9cbd9}small{color:var(--pine);font-weight:700}
+:focus-visible{outline:4px solid var(--fire);outline-offset:2px}
+</style></head><body>
+<header>
+<div class="top"><div><h1>Summit</h1><p id="pep"></p></div>
+<div style="display:flex;gap:10px"><label>New words a day<input type="number" id="npd" min="5" max="200" step="5"></label><label>Test date<input type="date" id="td"></label></div></div>
+<div class="top stats"><div><b id="left">?</b>days to test</div><div><b id="streak">0</b>day streak</div><div><b id="lvl"></b>level</div><div><b id="xp">0</b>XP</div></div>
+<div class="bar"><div id="bar"></div></div><p id="mast"></p>
+</header>
+<nav><button data-t="train" class="on">Train</button><button data-t="quiz">Quiz</button><button data-t="analogies">Analogies</button><button data-t="roots">Roots</button><button data-t="words">All words</button></nav>
+<main id="main"></main>
+<script src="words.js"></script><script src="words2.js"></script><script src="words3.js"></script><script src="words4.js"></script><script src="words5.js"></script><script src="words6.js"></script><script src="words7.js"></script><script src="analogies.js"></script><script src="analogies2.js"></script><script src="analogies3.js"></script><script src="analogies4.js"></script><script src="roots.js"></script><script src="app.js"></script>
+</body></html>
