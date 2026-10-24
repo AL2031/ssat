@@ -32,11 +32,11 @@ button{font:inherit;font-weight:700;border:3px solid var(--ink);border-radius:12
 </style></head><body>
 <header>
 <div class="top"><div><h1>Summit</h1><p id="pep"></p></div>
-<div style="display:flex;gap:10px"><label>New words a day<input type="number" id="npd" min="5" max="200" step="5"></label><label>Test date<input type="date" id="td"></label></div></div>
-<div class="top stats"><div><b id="left">?</b>days to test</div><div><b id="streak">0</b>day streak</div><div><b id="lvl"></b>level</div><div><b id="xp">0</b>XP</div></div>
-<div class="bar"><div id="bar"></div></div><p id="mast"></p>
+<div style="display:flex;gap:10px"><label>New words/day (blank = auto)<input type="number" id="npd" min="5" max="300" step="5"></label><label>Test 1<input type="date" id="td"></label><label>Test 2<input type="date" id="td2"></label></div></div>
+<div class="top stats"><div><b id="left">?</b>days to next test</div><div><b id="streak">0</b>day streak</div><div><b id="lvl"></b>level</div><div><b id="xp">0</b>XP</div></div>
+<div class="bar"><div id="bar"></div></div><p id="mast"></p><p id="pace" style="max-width:760px;margin:2px auto 0;font-size:.9rem;color:#FFC93C"></p>
 </header>
 <nav><button data-t="train" class="on">Train</button><button data-t="quiz">Quiz</button><button data-t="analogies">Analogies</button><button data-t="roots">Roots</button><button data-t="words">All words</button></nav>
 <main id="main"></main>
-<script src="words.js"></script><script src="words2.js"></script><script src="words3.js"></script><script src="words4.js"></script><script src="words5.js"></script><script src="words6.js"></script><script src="words7.js"></script><script src="analogies.js"></script><script src="analogies2.js"></script><script src="analogies3.js"></script><script src="analogies4.js"></script><script src="roots.js"></script><script src="app.js"></script>
+<script src="data.js"></script><script src="app.js"></script>
 </body></html>
