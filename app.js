@@ -10,17 +10,22 @@ const LV=['Rookie','Reader','Wordsmith','Scholar','Linguist','Lexicon Legend'];
 const PEP=['A month is plenty. Steady daily sessions beat a weekend of cramming.','You already aced reading and math. Vocab is the last peak.','Every word you learn today is a point you keep on test day.','Small daily climbs get you to the top.'];
 const CHEER=['Nice.','Locked in.','That’s a point on test day.','Keep climbing.','Boom.'];
 function setBox(w,b){S.box[w]=Math.max(1,Math.min(5,b));S.due[w]=Date.now()+GAP[S.box[w]]*DAY}
-function touch(){const t=new Date().toDateString();if(S.last!==t){S.streak=S.last===new Date(Date.now()-DAY).toDateString()?S.streak+1:1;S.last=t;S.n=0}}
+function calcGoal(){
+ const t0=Math.max(new Date(new Date().toDateString()),new Date('2026-10-24T00:00')),dead=new Date((S.test||'2026-11-14')+'T00:00')-2*DAY;
+ const days=Math.max(1,Math.round((dead-t0)/DAY)),left=W.filter(x=>!S.box[x.w]).length;
+ return Math.max(5,Math.ceil(left/days))}
+function touch(){const t=new Date().toDateString();if(S.last!==t){S.streak=S.last===new Date(Date.now()-DAY).toDateString()?S.streak+1:1;S.last=t;S.n=0;S.goal=calcGoal()}}
 function gain(n){touch();S.xp+=n;save();stats()}
 function stats(){
  const m=W.filter(x=>S.box[x.w]>=4&&S.ok[x.w]).length,L=W.filter(x=>S.ok[x.w]).length,lv=Math.min(LV.length-1,Math.floor(S.xp/250));
- const left=S.test?Math.ceil((new Date(S.test+'T00:00')-Date.now())/DAY):null;
+ const dl=d=>d?Math.ceil((new Date(d+'T00:00')-Date.now())/DAY):null,ds=[S.test,S.test2].map(dl).filter(x=>x!==null&&x>=0).sort((a,b)=>a-b),left=ds.length?ds[0]:null;
  $('#left').textContent=left===null?'?':Math.max(left,0);
+ $('#pace').textContent=left===null?'':left===0?'Test day. You have got this.':'Tests in '+ds.join(' and ')+' days. Plan: '+(S.npd||S.goal||calcGoal())+' new words a day finishes every card, with the last 2 days before test 1 for review only.';
  $('#streak').textContent=S.streak;$('#lvl').textContent=LV[lv];$('#xp').textContent=S.xp;
  $('#bar').style.width=100*L/W.length+'%';$('#mast').textContent=L+' learned, '+m+' mastered, of '+W.length+' words';
 }
 function train(){
- touch();const goal=S.npd||70,now=Date.now();
+ touch();if(!S.goal)S.goal=calcGoal();const goal=S.npd||S.goal,now=Date.now();
  const due=shuffle(W.filter(x=>S.box[x.w]&&S.due[x.w]<=now)).slice(0,30);
  const fresh=W.filter(x=>!S.box[x.w]).slice(0,Math.max(0,Math.min(10,goal-S.n)));
  const mk=(c,isNew)=>({c,isNew,fails:0,need:isNew||!S.ok[c.w]?2:1,study:isNew});
@@ -115,7 +120,7 @@ function aquiz(){
 const tabs={train,quiz,analogies,roots,words};
 function tab(n){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===n));tabs[n]()}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
-$('#npd').value=S.npd||70;$('#npd').onchange=e=>{S.npd=Math.max(5,Math.min(200,+e.target.value||70));e.target.value=S.npd;save()};
-$('#td').value=S.test||'';$('#td').onchange=e=>{S.test=e.target.value;save();stats()};
+$('#npd').value=S.npd||'';$('#npd').placeholder='auto';$('#npd').onchange=e=>{const v=+e.target.value;S.npd=v>=5?Math.min(300,v):0;e.target.value=S.npd||'';save();stats()};
+S.test=S.test||'2026-11-14';S.test2=S.test2||'2026-12-12';$('#td').value=S.test;$('#td2').value=S.test2;$('#td').onchange=e=>{S.test=e.target.value;S.goal=calcGoal();save();stats()};$('#td2').onchange=e=>{S.test2=e.target.value;save();stats()};
 $('#pep').textContent=rnd(PEP);
 stats();tab('train');
