@@ -13,6 +13,8 @@ header{background:var(--ink);color:#fff;padding:20px 16px}
 h1{font-size:2.6rem;font-weight:800}
 #pep{margin:4px 0 0;color:#cfe0ee;max-width:46ch}
 label{font-size:.85rem}input{font:inherit;padding:8px;border-radius:8px;border:2px solid var(--ink);width:100%}
+header input[type=checkbox]{width:auto;padding:0;margin:0;accent-color:var(--sun)}
+.toggle-label{display:flex;align-items:center;gap:8px;white-space:nowrap;padding:7px 0}
 .stats{gap:20px}.stats b{font-size:1.6rem;color:var(--sun);display:block;line-height:1.1}
 .bar{max-width:760px;margin:0 auto;height:14px;background:#1d4466;border-radius:7px;overflow:hidden}
 #bar{height:100%;width:0;background:var(--sun);transition:width .6s}
@@ -21,14 +23,14 @@ nav{display:flex;flex-wrap:wrap;gap:8px;max-width:760px;margin:16px auto 0;paddi
 nav button{flex:1 1 auto;padding:10px 12px}nav button.on{background:var(--fire);color:#fff}
 main{max-width:760px;margin:0 auto;padding:16px}
 button{font:inherit;font-weight:700;border:3px solid var(--ink);border-radius:12px;padding:12px 18px;background:#fff;color:var(--ink);cursor:pointer}
+button:disabled{cursor:default;opacity:.8}
 .card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:36px 24px;text-align:center;min-height:240px;cursor:pointer;box-shadow:6px 6px 0 var(--ink)}
 .card h2{font-size:2.6rem;margin-bottom:12px}.def{font-size:1.3rem}.ex{color:#456;font-style:italic}
 .row{display:flex;gap:12px;margin-top:16px}.row button{flex:1}
 .yes{background:var(--pine);color:#fff}.no{background:var(--sun)}
-.opts{display:grid;gap:10px;margin-top:16px}.opts button{text-align:left}
+.opts{display:grid;gap:10px;margin-top:16px}.opts button{text-align:left;overflow-wrap:anywhere}
 .opts .right{background:var(--pine);color:#fff}.opts .wrong{background:var(--fire);color:#fff}
 .w{padding:10px 0;border-bottom:1px solid #b9cbd9}small{color:var(--pine);font-weight:700}
-
 .session-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#456;font-size:.9rem;font-weight:700;margin:4px 0 8px}
 .today-line{font-size:.9rem;color:#456;margin:0 0 12px}
 .flashcard{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:clamp(22px,5vw,42px) clamp(18px,4vw,34px);min-height:300px;text-align:center;box-shadow:7px 7px 0 var(--ink);display:flex;flex-direction:column;justify-content:center}
@@ -44,17 +46,16 @@ button{font:inherit;font-weight:700;border:3px solid var(--ink);border-radius:12
 .rate-again{background:#ffe3dc}.rate-hard{background:#fff0c4}.rate-good{background:#d9efe3}.rate-easy{background:#dceafa}
 .study-summary{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:28px 22px;text-align:center;box-shadow:6px 6px 0 var(--ink)}
 .study-summary h2{font-size:clamp(1.6rem,5vw,2.3rem);margin:6px 0 12px}.study-summary .def{font-size:1.05rem;max-width:55ch;margin:12px auto}
-@media(max-width:560px){.rating-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flashcard{min-height:280px}.session-meta{font-size:.82rem}}
-
+@media(max-width:560px){.rating-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flashcard{min-height:280px}.session-meta{font-size:.82rem}.top.stats{gap:12px}.top.controls{align-items:stretch}.top.controls label{flex:1 1 30%}}
 :focus-visible{outline:4px solid var(--fire);outline-offset:2px}
 </style></head><body>
 <header>
 <div class="top"><div><h1>Summit</h1><p id="pep"></p></div>
-<div style="display:flex;gap:10px"><label>New words/day (blank = auto)<input type="number" id="npd" min="5" max="300" step="5"></label><label>Test 1<input type="date" id="td"></label><label>Test 2<input type="date" id="td2"></label></div></div>
+<div class="top controls" style="display:flex;gap:10px;max-width:none;margin:0;align-items:end"><label>New words/day (blank = auto)<input type="number" id="npd" min="5" max="300" step="5"></label><label>Test 1<input type="date" id="td"></label><label>Test 2<input type="date" id="td2"></label><label class="toggle-label"><input type="checkbox" id="unlimited"> Unlimited study</label></div></div>
 <div class="top stats"><div><b id="left">?</b>days to next test</div><div><b id="streak">0</b>day streak</div><div><b id="lvl"></b>level</div><div><b id="xp">0</b>XP</div></div>
 <div class="bar"><div id="bar"></div></div><p id="mast"></p><p id="pace" style="max-width:760px;margin:2px auto 0;font-size:.9rem;color:#FFC93C"></p>
 </header>
-<nav><button data-t="train" class="on">Flashcards</button><button data-t="quiz">Quiz</button><button data-t="analogies">Analogies</button><button data-t="roots">Roots</button><button data-t="words">All words</button></nav>
+<nav><button data-t="train" class="on">Flashcards</button><button data-t="mixed">Mixed study</button><button data-t="quiz">Quiz</button><button data-t="analogies">Analogies</button><button data-t="roots">Roots</button><button data-t="words">All words</button></nav>
 <main id="main"></main>
 <script src="data.js"></script><script src="app.js"></script>
 </body></html>
