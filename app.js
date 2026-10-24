@@ -274,3 +274,4 @@ const unlimitedToggle=$('#unlimited');if(unlimitedToggle){unlimitedToggle.checke
 S.test=S.test||'2026-11-14';S.test2=S.test2||'2026-12-12';$('#td').value=S.test;$('#td2').value=S.test2;$('#td').onchange=e=>{S.test=e.target.value;S.goal=calcGoal();save();stats()};$('#td2').onchange=e=>{S.test2=e.target.value;save();stats()};
 $('#pep').textContent=rnd(PEP);
 stats();tab('train');
+ 
